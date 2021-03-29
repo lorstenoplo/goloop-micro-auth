@@ -1,10 +1,5 @@
 {
   "compilerOptions": {
-    "baseUrl": "./",
-    "paths": {
-      "types": ["types/*"],
-      "utils": ["utils/*"]
-    },
     "allowSyntheticDefaultImports": true
   }
 }
