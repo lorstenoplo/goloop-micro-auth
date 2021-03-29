@@ -3,7 +3,7 @@
     "baseUrl": "./",
     "paths": {
       "types": ["types/*"],
-      "@utils/*": ["utils/*"]
+      "utils": ["utils/*"]
     },
     "allowSyntheticDefaultImports": true
   }
