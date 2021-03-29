@@ -1,7 +1,7 @@
 import { VercelRequest, VercelResponse } from "@vercel/node";
 import { RegisterInput } from "types/register-input-type";
 import bcrypt from "bcryptjs";
-import generateToken from "@utils/generateToken";
+import generateToken from "utils/generateToken";
 
 export default async function register(
   req: VercelRequest,
