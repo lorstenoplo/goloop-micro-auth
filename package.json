@@ -12,10 +12,14 @@
   "devDependencies": {
     "@types/bcryptjs": "^2.4.2",
     "@types/jsonwebtoken": "^8.5.1",
-    "@vercel/node": "^1.9.1"
+    "@types/mongodb": "^3.6.12",
+    "@vercel/node": "^1.9.1",
+    "dotenv": "^8.2.0"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
-    "jsonwebtoken": "^8.5.1"
+    "jsonwebtoken": "^8.5.1",
+    "mongodb": "^3.6.6",
+    "node-fetch": "^2.6.1"
   }
 }

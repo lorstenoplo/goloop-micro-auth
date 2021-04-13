@@ -3,3 +3,7 @@ export type RegisterInput = {
   email: string;
   password: string;
 };
+
+export interface User extends RegisterInput {
+  createdAt: string;
+}
