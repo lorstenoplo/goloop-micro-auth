@@ -11,7 +11,41 @@ export default async function register(
   req: VercelRequest,
   res: VercelResponse
 ) {
-  const { username, email, password }: RegisterInput = req.body;
+  const { username, email, password }: RegisterInput = JSON.parse(req.body);
+
+  if (username.length <= 2) {
+    res.json({
+      errors: [
+        {
+          field: "username",
+          message: "Username should be atleast 3 charecters long",
+        },
+      ],
+    });
+  }
+
+  if (password.length <= 5) {
+    res.json({
+      errors: [
+        {
+          field: "password",
+          message: "Password should be atleast 6 charecters long",
+        },
+      ],
+    });
+  }
+
+  if (!email.includes("@") && !email.includes(".")) {
+    res.json({
+      errors: [
+        {
+          field: "email",
+          message: "Email is not formated properly",
+        },
+      ],
+    });
+  }
+
   const db = await connectToDatabase(process.env.MONGO_CONNECTION_URL);
 
   const salt = bcrypt.genSaltSync(10);
@@ -32,9 +66,12 @@ export default async function register(
     });
   }
   const token = generateToken(user);
-
+  const __prod__ = process.env.NODE_ENV === "production";
+  const email_api_url = __prod__
+    ? "https://goloop-micro-auth.vercel.app/api/signup"
+    : "http://localhost:3003/api/signup";
   try {
-    await fetch("http://localhost:3001/api/signup", {
+    await fetch(email_api_url, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
