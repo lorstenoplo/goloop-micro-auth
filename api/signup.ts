@@ -6,6 +6,7 @@ import connectToDatabase from "../utils/connectToDb";
 import "dotenv/config";
 import { InsertOneWriteOpResult } from "mongodb";
 import fetch from "node-fetch";
+import { signup_email_api_url } from "../utils/constants";
 
 export default async function register(
   req: VercelRequest,
@@ -66,12 +67,9 @@ export default async function register(
     });
   }
   const token = generateToken(user);
-  const __prod__ = process.env.NODE_ENV === "production";
-  const email_api_url = __prod__
-    ? "https://goloop-micro-auth.vercel.app/api/signup"
-    : "http://localhost:3003/api/signup";
+
   try {
-    await fetch(email_api_url, {
+    await fetch(signup_email_api_url, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
