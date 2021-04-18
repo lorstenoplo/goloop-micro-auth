@@ -8,6 +8,7 @@ export default async function deleteUser(
   res: VercelResponse
 ) {
   const { email, username } = JSON.parse(req.body);
+
   const db = await connectToDatabase(process.env.MONGO_CONNECTION_URL);
   const deletedUser = await db.collection("users").deleteOne({ email });
 
@@ -15,17 +16,20 @@ export default async function deleteUser(
     res.status(500).json({
       deletedUser: null,
     });
-  } else {
-    await fetch(bye_email_api_url, {
+    return;
+  }
+
+  try {
+    const res = await fetch(bye_email_api_url, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: {
+      body: JSON.stringify({
         to: email,
         username,
-      },
+      }),
     });
-    res.json({ deletedUser });
+  } catch (error) {
+    console.error("couldn't send email");
   }
+
+  res.json({ deletedUser: true });
 }
