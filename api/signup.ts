@@ -23,6 +23,7 @@ export default async function register(
         },
       ],
     });
+    return;
   }
 
   if (password.length <= 5) {
@@ -34,6 +35,7 @@ export default async function register(
         },
       ],
     });
+    return;
   }
 
   if (!email.includes("@") && !email.includes(".")) {
@@ -45,8 +47,9 @@ export default async function register(
         },
       ],
     });
+    return;
   }
-
+  console.log("hi");
   const db = await connectToDatabase(process.env.MONGO_CONNECTION_URL);
 
   const salt = bcrypt.genSaltSync(10);
@@ -65,6 +68,7 @@ export default async function register(
     res.status(500).json({
       error,
     });
+    return;
   }
   const token = generateToken(user);
 
