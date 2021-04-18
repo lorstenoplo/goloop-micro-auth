@@ -49,7 +49,7 @@ export default async function register(
     });
     return;
   }
-  console.log("hi");
+
   const db = await connectToDatabase(process.env.MONGO_CONNECTION_URL);
 
   const salt = bcrypt.genSaltSync(10);
